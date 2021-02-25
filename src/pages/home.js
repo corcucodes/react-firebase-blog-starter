@@ -7,7 +7,12 @@ const Home = () => {
   const [blogPosts, setBlogPosts] = useState([]);
 
   if (loading && !blogPosts.length) {
-    getFirebase().database().ref("/posts").orderByChild("date").once("value").then(snapshot => {
+    getFirebase()
+      .database()
+      .ref("/posts")
+      .orderByChild("date")
+      .once("value")
+      .then(snapshot => {
         let posts = [];
         const snapshotVal = snapshot.val();
         for (let slug in snapshotVal) {
@@ -24,9 +29,25 @@ const Home = () => {
     return <h1>Loading...</h1>;
   }
 
+  function handleClick() {
+    var query = getFirebase().database().ref("/posts").orderByKey();
+    query.once("value") // listen for value
+      .then(snapshot => {
+        let posts = [];
+        const snapshotVal = snapshot.val();
+        for (let whatevs2 in snapshotVal) {
+          posts.push(snapshotVal[whatevs2]);
+        }
+          console.log(posts)
+      })
+    }
+        
+    
+
   return (
     <>
       <h1>Blog posts</h1>
+      <button onClick={handleClick}>TEST</button>
       {blogPosts.map(blogPost => (
 
         <section key={blogPost.slug} className="card">
@@ -40,7 +61,7 @@ const Home = () => {
             <p dangerouslySetInnerHTML={{__html: `${blogPost.content.substring(0, 200)}...`}}></p>
 
             <Link to={`/${blogPost.slug}`}>Continue reading...</Link>
-
+          
           </div>
         </section>
       ))}
