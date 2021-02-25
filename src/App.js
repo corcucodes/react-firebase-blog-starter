@@ -11,10 +11,16 @@ function App() {
   return (
     <Router>
       <nav>
-        <Link to="/">
-          <h2>My React + Firebase Blog</h2>
-          <button onClick=""  ></button>
-        </Link>
+      <h2>Auggy Blog 3</h2>
+      
+        <Link to="/">home</Link>
+
+        <Link to="/create" style={{ 
+          color: 'white', 
+          backgroundColor: '#f1356d',
+          borderRadius: '8px' 
+        }}>New Blog</Link>
+
       </nav>
       <main>
         <Switch>
